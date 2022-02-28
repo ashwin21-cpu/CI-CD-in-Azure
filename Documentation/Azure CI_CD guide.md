@@ -40,6 +40,23 @@ Once you have the necessary variables, you can start to add the tasks you need t
 ### Build and push your image to a registry
 After your pipeline is generated from choosing the AKS configured template, you’ll notice a few things in the YAML build. Your image type is included and the build stages & task follow.
 
-![image](https://user-images.githubusercontent.com/86832286/155719677-eb632f44-de30-4fad-8604-f14e7cdb0443.png)
+![image](https://user-images.githubusercontent.com/86832286/155988561-3ddecaa9-9055-4224-8468-9e790aafb355.png)
+
+Note: Double check that your vmImageName = ‘windows-latest’ as it might default to ‘ubuntu-latest’.
+
+### Azure Container Registry
+
+![image](https://user-images.githubusercontent.com/86832286/155988713-dc9419a9-6927-4ba2-aca9-605c30b7e61a.png)
+
+### Setup the Deploy Stage
+
+This is done by using the first part of our yaml file and repurposing it to include our deployment tasks. It will create manifest files like deployment.yaml and service.yaml
+
+![image](https://user-images.githubusercontent.com/86832286/155989403-326c1efd-1e32-4834-bbc4-05312dc6258e.png)
+
+
+
+
+
 
 
