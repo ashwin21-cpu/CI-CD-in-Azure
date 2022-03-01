@@ -22,6 +22,7 @@ For `.NET Core`, the nano server base image must be “1809” to be compatible 
 
 ## Create the Pipeline
 Once you have your repository created in Azure DevOps, or imported from GitHub, you can create your pipeline. On the left menu bar go to Pipelines and click the Create Pipeline button. The next screen will ask you where the code is to create the pipeline from. We already have our code imported, so we can choose Azure Repos Git to select your current repository. Since we are using Azure Kubernetes Service we can choose the Azure Kubernetes Service template that allows us to build and push an image to Azure Container Registry and deploy the application image in AKS cluster.
+
 ![image](https://user-images.githubusercontent.com/86832286/155716308-1f5f21f7-2db5-410d-8672-92d90377d36f.png)
 
 Choose your `subscription` that you will be pushing your resources to, then pick your Container registry on the following screen. You will notice your Image Name and Dockerfile are pre-populated with a suggested name and path to your Dockerfile. You can leave those as it is, and click on the Validate and configure button to generate your azure-pipeline.yaml file.
@@ -30,9 +31,9 @@ Choose your `subscription` that you will be pushing your resources to, then pick
 
 Variables are only accessible after your create the pipeline. Since we are using sensitive information that you don’t want others to access, we will use variables to protect our information. Create a variable by following the directions [here](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch). Add the variables below with your own secrets appropriate from each resource.
 
-* `imageRepository`: image-name
-* `containerRegistry`: ‘your-registry-name.azurecr.io’
-* `applicationName`: app-name
+* `imageRepository`: 'image-name'
+* `containerRegistry`: 'your-registry-name.azurecr.io'
+* `applicationName`: 'app-name'
 
 ## Build the Pipeline
 Once you have the necessary variables, you can start to add the tasks you need to complete the pipeline. Below is an explanation of the Docker tasks that were added to your pipeline from the AKS template with the addition of using ACR.
@@ -50,13 +51,20 @@ Note: Double check that your vmImageName = ‘windows-latest’ as it might defa
 
 ### Setup the Deploy Stage
 
-This is done by using the first part of our yaml file and repurposing it to include our deployment tasks. It will create manifest files like deployment.yaml and service.yaml
+This is done by using the first part of our yaml file and repurposing it to include our deployment tasks.
 
-![image](https://user-images.githubusercontent.com/86832286/155989403-326c1efd-1e32-4834-bbc4-05312dc6258e.png)
+![image](https://user-images.githubusercontent.com/86832286/156116102-dcd1d8ee-194c-4379-bf91-5820d74fc20d.png)
 
+### Deploy to Azure Kubernetes Service
 
+Now that you have your image pushed to your registry and your deploy stage setup. You can push the container to Azure Kubernetes Service. If you haven’t already created your Azure Kubernetes Service in the Azure portal, you’ll need to do so now before you can proceed.
 
+![image](https://user-images.githubusercontent.com/86832286/156117133-98ff64eb-bf38-4fc6-ac86-db71bbb3436d.png)
 
+### Summary
 
+From here you are setup to continuously build your Windows Container application through Azure DevOps. Below you’ll see the final result of the workflow yaml file.
 
+#### Full workflow file
 
+The previous sections showed how to assemble the workflow step-by-step. The full `azure-pipelines.yaml` is below.
