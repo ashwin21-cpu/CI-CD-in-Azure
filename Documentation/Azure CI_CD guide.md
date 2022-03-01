@@ -1,6 +1,6 @@
 # CI/CD for Windows Containers with Azure DevOps
-
-Aure DevOps enables you to host, build, plan and test your code with complimentary workflows. Using Azure Pipelines as one of these workflows allows you to deploy your application with CI/CD that works with any platform and cloud.
+## Abstract
+Azure DevOps enables you to host, build, plan and test your code with complimentary workflows. Using Azure Pipelines as one of these workflows allows you to deploy your application with CI/CD that works with any platform and cloud.
 This sample application is a simple task-tracking app built with .NET Framework. The project has a workflow file, azure-pipelines.yaml, that is set up for Continuous Integraion and Continuous Deployment.
 
 ## Prerequisites:
