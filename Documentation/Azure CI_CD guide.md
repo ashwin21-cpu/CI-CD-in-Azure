@@ -63,6 +63,16 @@ Now that you have your image pushed to your registry and your deploy stage setup
 
 ![image](https://user-images.githubusercontent.com/86832286/156117133-98ff64eb-bf38-4fc6-ac86-db71bbb3436d.png)
 
+`Note:` The above steps include microsoft hosted Agent Pool. For self hosted Agent Pool follow the below step.
+
+### Setup for Self-Hosted Agent Pool
+
+For self-hosted Agent Pool please proceed to this [link](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-windows?view=azure-devops) 
+
+* Also edit the azure-pipeline.yaml file as shown here. ![image](https://user-images.githubusercontent.com/82659622/156331877-173859ee-9819-42dd-aa45-351d9da1e37c.png)
+* Replace the name of the self hosted Agent Pool and comment the vmImage at each occurence in the file.
+
+
 ### Summary
 
 From here you are setup to continuously build your Windows Container application through Azure DevOps. Below you’ll see the final result of the workflow yaml file.
