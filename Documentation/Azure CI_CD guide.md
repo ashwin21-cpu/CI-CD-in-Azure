@@ -13,7 +13,7 @@ Create the following resources. You will need information from each resource tha
 ### 2. Add a Service Connection
 Before you create your pipeline, you should first create your Service Connection since you will be asked to choose and verify your connection when creating your template. A Service Connection will allow you to connect to your ACR when using the task templates. You can create a new Service Connection following the directions [here](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops&tabs=yaml#create-new). 
 
-`* Note: While creating service connection select Azure Resource Manager option.`
+* #####  `Note: While creating service connection select Azure Resource Manager option.`
 
 ### 3. The Dockerfile
 The samples below explain the associated Dockerfiles for the .NET Core sample applications linked above. If creating your own application, use the appropriate Dockerfile below and replace the directory paths to match your application.
