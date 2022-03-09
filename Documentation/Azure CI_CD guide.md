@@ -73,6 +73,36 @@ For self-hosted Agent Pool please proceed to this [link](https://docs.microsoft.
 * Replace the name of the self hosted Agent Pool and comment the vmImage at each occurence in the file.
 
 
+
+## Deploy to an Azure SQL Databse
+
+To deploy your SQL database to Azure, we will use a dacpac file or SQL scripts, and a connection string. The connection string can be found in the overview page of your Azure SQL database and you can create your dacpac by extracting the data using something like SQL Server Object Explorer in Visual Studio.
+
+If you need to import a SQL database that you’d like to host on Azure, you have the option to add in the Azure SQL Database deployment task which can be found in the assistant we used earlier. Enter the following values for the parameters
+
+![image](https://user-images.githubusercontent.com/82659622/157427871-69fbae1e-248d-4bdc-8edb-0d974a62b768.png)
+
+Once created with the above parameters, the output should show as below.
+
+![image](https://user-images.githubusercontent.com/82659622/157428520-57ccbff9-5be8-4092-8aab-350048119735.png)
+
+#### Connection String
+Our sample app has a dummy connection string in the appsettings.json that will need to be changed for local testing. Make sure the same connection string must be added in the `azure-pipeline.yaml` file within the SqlAzureDacpacDeployment@1 task.
+
+When adding the values for the SQL Database parameters, you’ll want to choose Connection String as your Authentication Type and add in your connection string. You can use Variables in DevOps to hide the connection string in safe keeping.
+
+### Creating a dacpac file in your project
+As mentioned before, you’ll need to use either a dacpac file or set of SQL scripts to deploy your database schema. If you are using Visual Studio, it’s easy to create and add the needed dacpac file to run the action.
+
+1. Connect your SQL Azure Database to Visual Studio
+2. Right-click the data base and choose Extract Data-tier application
+3. On the following window, choose the location at the same level of your github workflow file and click create.
+    
+  ![image](https://user-images.githubusercontent.com/82659622/157430098-c8b8d861-f56a-42c1-8302-d39d7276e9aa.png)
+  
+Your dacpac file should have been created and added to your project. The action finds your file under the dacpac-package parameter seen above.
+
+
 ### Summary
 
 From here you are setup to continuously build your Windows Container application through Azure DevOps. Below you’ll see the final result of the workflow yaml file.
@@ -86,9 +116,11 @@ The previous sections showed how to assemble the workflow step-by-step. The full
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
+# The branch that triggers the pipeline to start building
 trigger:
 - master
 
+# The source used by the pipeline
 resources:
 - repo: self
 
@@ -225,6 +257,23 @@ stages:
                 message="${message} and is available at $url.<br><br>[Learn More](https://aka.ms/testwithreviewapps) about how to test and provide feedback for the app."
               fi
               echo "##vso[task.setvariable variable=GITHUB_COMMENT]$message"
+              
+- stage: SqlDeployment
+  displayName: Sql DB Deployment
+  jobs:
+  - job: SqlDeployment
+    displayName: Sql DB Deployment
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: SqlAzureDacpacDeployment@1
+      inputs:
+        azureSubscription: 'AzureDemoSC'
+        AuthenticationType: 'connectionString'
+        ConnectionString: '<azureSQLConnectionString>'
+        deployType: 'DacpacTask'
+        DeploymentAction: 'Publish'
+        DacpacFile: '$(System.DefaultWorkingDirectory)/**/data.dacpac'
 
 ```
 
