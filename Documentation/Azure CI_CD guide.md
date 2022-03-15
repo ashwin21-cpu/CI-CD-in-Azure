@@ -1,7 +1,7 @@
 # CI/CD for Windows Containers with Azure DevOps
 ## Abstract
-Azure DevOps enables you to host, build, plan and test your code with complimentary workflows. Using Azure Pipelines as one of these workflows allows you to deploy your application with CI/CD that works with any platform and cloud.
-This sample application is a simple task-tracking app built with .NET Framework. The project has a workflow file, azure-pipelines.yaml, that is set up for Continuous Integration and Continuous Deployment.
+Azure DevOps enables you to host, build, plan and test your code with complimentary workflows. 
+This sample application is a simple task-tracking app built with .NET Framework. The project has a azure-pipelines.yaml (for reference) that is set up for Continuous Integration and Continuous Deployment.
 
 ## Prerequisites:
 ### 1. Create Resources
@@ -13,7 +13,7 @@ Create the following resources. You will need information from each resource tha
 ### 2. Add a Service Connection
 Before you create your pipeline, you should first create your Service Connection since you will be asked to choose and verify your connection when creating your template. A Service Connection will allow you to connect to your ACR when using the task templates. You can create a new Service Connection following the directions [here](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops&tabs=yaml#create-new). 
 
-* #####  `Note: While creating service connection select Azure Resource Manager option.`
+* #####  `Note: While creating service connection select Azure Resource Manager option. Also skip the resource group field in the next prompt.`
 
 ### 3. The Dockerfile
 The samples below explain the associated Dockerfiles for the .NET Core sample applications linked above. If creating your own application, use the appropriate Dockerfile below and replace the directory paths to match your application.
@@ -62,16 +62,6 @@ This is done by using the first part of our yaml file and repurposing it to incl
 Now that you have your image pushed to your registry and your deploy stage setup. You can push the container to Azure Kubernetes Service. If you haven’t already created your Azure Kubernetes Service in the Azure portal, you’ll need to do so now before you can proceed.
 
 ![image](https://user-images.githubusercontent.com/86832286/156117133-98ff64eb-bf38-4fc6-ac86-db71bbb3436d.png)
-
-`Note:` The above steps include microsoft hosted Agent Pool. For self hosted Agent Pool follow the below step.
-
-### Setup for Self-Hosted Agent Pool
-
-For self-hosted Agent Pool please proceed to this [link](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-windows?view=azure-devops) 
-
-* Also edit the azure-pipeline.yaml file as shown here. ![image](https://user-images.githubusercontent.com/82659622/156331877-173859ee-9819-42dd-aa45-351d9da1e37c.png)
-* Replace the name of the self hosted Agent Pool and comment the vmImage at each occurence in the file.
-
 
 
 ## Deploy to Azure SQL Database
