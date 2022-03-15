@@ -74,7 +74,7 @@ For self-hosted Agent Pool please proceed to this [link](https://docs.microsoft.
 
 
 
-## Deploy to an Azure SQL Databse
+## Deploy to Azure SQL Database
 
 To deploy your SQL database to Azure, we will use a dacpac file or SQL scripts, and a connection string. The connection string can be found in the overview page of your Azure SQL database and you can create your dacpac by extracting the data using something like SQL Server Object Explorer in Visual Studio.
 
