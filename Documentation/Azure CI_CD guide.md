@@ -43,9 +43,10 @@ Once you have the necessary variables, you can start to add the tasks you need t
 ### Build and push your image to a registry
 After your pipeline is generated from choosing the AKS configured template, you’ll notice a few things in the YAML build. Your image type is included and the build stages & task follow.
 
-![image](https://user-images.githubusercontent.com/86832286/155988561-3ddecaa9-9055-4224-8468-9e790aafb355.png)
+![image](https://user-images.githubusercontent.com/82659622/159221361-be20274b-48cf-41be-a38a-976c354868b1.png)
 
-Note: Double check that your vmImageName = ‘windows-latest’ as it might default to ‘ubuntu-latest’.
+
+Note: Double check that your vmImageName = ‘windows-2019’ as it might default to ‘ubuntu-latest’.
 
 ### Azure Container Registry
 
@@ -124,7 +125,7 @@ variables:
   imagePullSecret: '<image-pull-secret>'
 
   # Agent VM image name
-  vmImageName: 'windows-latest'
+  vmImageName: 'windows-2019'
 
   # Name of the new namespace being created to deploy the PR changes.
   k8sNamespaceForPR: 'review-app-$(System.PullRequest.PullRequestId)'
